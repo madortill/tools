@@ -1,0 +1,141 @@
+html {
+    height: 100%;
+}
+
+.body {
+    margin: 0;
+    direction: rtl;
+    font-size: 5vmin;
+    font-family: var(--font);
+    background: linear-gradient(45deg, #3f66a9, pink);
+}
+
+:root {
+    --font: "heebo" ;
+}
+
+@font-face {
+    font-family: heebo;
+    src: url("assets/fonts/Heebo-VariableFont_wght.ttf");
+}
+
+.delete-later {
+    background-color: black;
+    height: 10vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    z-index: 99;
+}
+
+.main-title {
+    text-align: center;
+    font-size: 2.5em;
+    margin-top: 11vh;
+    /* position: absolute;
+    top: 1vh; */
+}
+
+.tool-container {
+    display: flex;
+    justify-content: space-around;
+    align-content: space-between;
+    flex-wrap: wrap;
+    width: 90%;
+    position: absolute;
+    top: 23vh;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tool-pic {
+    width: auto;
+    height: 16vh;
+    margin: 2vw 2vh;
+}
+
+/* question */
+.black-cover {
+    background-color: rgba(0, 0, 0, 0.595);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    display: none;
+}
+
+.multipleQuestionContainer {
+    box-sizing: border-box;
+    position: absolute;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    /* height: 60%; */
+    height: fit-content;
+    /* max-height: 80vh; */
+    text-align: center;
+    background-color: antiquewhite;
+    padding: 3.5vh 5vw 5vh 5vw;
+    border-radius: 10%;
+    font-size: 1.7em;
+    display: none;
+}
+
+.ans {
+    background-color: rgb(250, 210, 157);
+    border-radius: 0.36em;
+    width: 80%;
+    margin: 2vh auto;
+}
+
+/* Answers Container */
+.ansContainer {
+    border-collapse: collapse;
+    align-content: space-between;
+    
+}
+
+/* .pre-question {
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    height: 90%; Different
+    text-align: center;
+    background-color: antiquewhite;
+    padding: 0vh 4vw;
+    border-radius: 10%;
+    font-size: 1.7em;
+    display: none;
+} */
+
+.pre-tool {
+    width: 65%;
+    height: auto;
+    border-radius: 0.3em;
+}
+
+.pre-title {
+    margin: 0vh auto 2vh;
+    font-size: 1.05em;
+}
+
+.pre-text {
+    font-size: 0.7em;
+    margin: 0;
+}
+
+.to-questions {
+    box-sizing: border-box;
+    padding: 1vh 0.5vw;
+    margin-top: 2vh;
+    width: 50%;
+    font-size: 0.85em;
+    border-radius: 0.3em;
+    /* border: solid black 1px; */
+    border: none;
+    background-color: rgb(250, 210, 157);
+}
