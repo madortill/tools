@@ -3,7 +3,8 @@ const DATA = {
   tools: {
     amountOfQuestions: 3,
     tool0: {
-      name: "מברג",
+      name: "פטיש",
+      explanation: "הכלי נחשב במשפחת הכלים לפירוק פצצות ויכול לשמש ל-",
       questions: [
         {
           type: `multiple`,
@@ -16,26 +17,27 @@ const DATA = {
         },
         {
           type: `multiple`,
-          question: `בלה בלה`,
-          ans1: `טעות`,
-          ans2: `טעות`,
-          ans3: `נכון`,
-          ans4: `טעות`,
+          question: `איך קוראים לי?`,
+          ans1: `שיר`,
+          ans2: `נגה`,
+          ans3: `תמר`,
+          ans4: `אלון`,
           correctAns: `ans3`,
         },
         {
           type: `multiple`,
-          question: `בלה בלה`,
-          ans1: `טעות`,
-          ans2: `נכון`,
-          ans3: `טעות`,
-          ans4: `טעות`,
+          question: `בת כמה אני?`,
+          ans1: `16`,
+          ans2: `19`,
+          ans3: `22`,
+          ans4: `80`,
           correctAns: `ans2`,
         },
       ],
     },
     tool1: {
       name: "מפתח ברגים",
+      explanation: "",
       questions: [
         {
           type: `multiple`,
@@ -77,6 +79,7 @@ const DATA = {
     },
     tool2: {
       name: "מפתח ברגים",
+      explanation: "",
         questions: [
       {
         type: `multiple`,
@@ -117,6 +120,7 @@ const DATA = {
     ]},
     tool3: {
       name: "מפתח ברגים",
+      explanation: "",
       questions: [
         {
           type: `multiple`,
@@ -158,6 +162,7 @@ const DATA = {
     },
     tool4: {
       name: "מפתח ברגים",
+      explanation: "",
       questions: [
         {
           type: `multiple`,
@@ -199,6 +204,7 @@ const DATA = {
     },
     tool5: {
       name: "מפתח ברגים",
+      explanation: "",
       questions: [
         {
           type: `multiple`,
@@ -240,6 +246,7 @@ const DATA = {
     },
     tool6: {
       name: "מפתח צינורות",
+      explanation: "",
       questions: [
         {
           type: `multiple`,
@@ -281,6 +288,7 @@ const DATA = {
     },
     tool7: {
       name: "מפתח צינורות",
+      explanation: "",
       questions: [
         {
           type: `multiple`,

@@ -69,14 +69,14 @@ function shuffle(arr) {
 const addPreQuestion = (e) => {
     currTool = e.currentTarget.id;
     document.querySelector("#main-page").style.pointerEvents = "none";
+    document.querySelector(`.black-cover`).style.display = "block";
+    document.querySelector(".multipleQuestionContainer").style.display = "block";
     if (isVisited(currTool)) {
         showExplanation();
     } else {
-        document.querySelector(`.black-cover`).style.display = "block";
-        document.querySelector(".multipleQuestionContainer").style.display = "block";
-        document.querySelector(`.multipleQuestionContainer`).innerHTML = `<div class="pre-title">שם הכלי: ${DATA["tools"][currTool]["name"]}</div><img src="assets/media/${currTool}.png" alt="${TOOL_NAMES[currTool]}" class="pre-tool"><p class="pre-text">לפתיחת ההסבר נדרש לוודא כי יש לך הכשרה מספקת לשימוש בכלי ולכן אתה נדרש לענות נכון לפחות על 2 שאלות מתוך 3</p><button class="to-questions">לשאלות</button>`;
+        document.querySelector(`.multipleQuestionContainer`).innerHTML = `<div class="pre-title">שם הכלי: ${DATA["tools"][currTool]["name"]}</div><img src="assets/media/${currTool}.png" alt="${DATA["tools"][currTool].name}" class="pre-tool"><p class="pre-text">לפתיחת ההסבר נדרש לוודא כי יש לך הכשרה מספקת לשימוש בכלי ולכן אתה נדרש לענות נכון לפחות על 2 שאלות<br> מתוך 3</p><button class="btn">לשאלות</button>`;
         arrMultipleQuestions = shuffle(DATA["tools"][currTool]["questions"]);
-        document.querySelector(".to-questions").addEventListener("click", addContentToQuestion);
+        document.querySelector(".btn").addEventListener("click", addContentToQuestion);
     }
 }
 
@@ -134,10 +134,8 @@ const onClickAnswer = (event) => {
     String(arrMultipleQuestions[nMultipleCurrentQuestion].correctAns)
   ) {
       event.currentTarget.style.backgroundColor = "green";
-    console.log("נכון");
     nMultipleCorrectAnswers++;
   } else {
-    console.log("לא נכון");
     event.currentTarget.style.backgroundColor = "red";
   }
 
@@ -156,20 +154,35 @@ const onClickAnswer = (event) => {
 --------------------------------------------------------------
 Description: for multiple and binary questions or for complete the sentence */
 const questionsEnd = () => {
-  console.log("סיימתי");
   if (nMultipleCorrectAnswers >= 2) {
     visitedTools.push(currTool);
     showExplanation();
   } else {
     document.querySelector(`.multipleQuestionContainer`).innerHTML = "";
     document.querySelector(`.multipleQuestionContainer`).append(El("div", {cls:"fail"},
-    El("div", {cls:"pre-title"}, "פספסת כמה שאלות...<br> אולי בפעם הבאה "),
-    El("button", {cls: "to-questions", listeners: {click: backToMain}}, "לרשימת הכלים")));
+    El("div", {cls:"pre-title"}, "פספסת כמה שאלות..."),
+    El("div", {cls: "pre-text"}, "אולי בפעם הבאה"), 
+    El("button", {cls: "btn", listeners: {click: backToMain}}, "לרשימת הכלים")));
   }
+  nMultipleCurrentQuestion = 0;
+  nMultipleCorrectAnswers = 0;
 };
 
+const showExplanation = () => {
+  // document.querySelector(`.multipleQuestionContainer`).innerHTML = `<div class="pre-title">שם הכלי: ${DATA["tools"][currTool]["name"]}</div><img src="assets/media/${currTool}.png" alt="${DATA["tools"][currTool].name}" class="pre-tool"><p class="pre-text">הסבר: ${DATA["tools"][currTool]["explanation"]}</p><button class="btn">לרשימת הכלים</button>`;
+  // document.querySelector(".btn").addEventListener("click", backToMain);
+  document.querySelector(`.multipleQuestionContainer`).innerHTML = "";
+  document.querySelector(`.multipleQuestionContainer`).append(
+    El("div", {cls: "pre-title"}, `שם הכלי: ${DATA["tools"][currTool]["name"]}`), 
+    El("img", {attributes: {src: `assets/media/${currTool}.png`, alt: `${DATA["tools"][currTool].name}`}, cls: "pre-tool"}), 
+    El("p", {cls: "pre-text"}, `הסבר: ${DATA["tools"][currTool]["explanation"]}`), 
+    El("button", {cls: "btn", listeners: {"click": backToMain}}, "לרשימת הכלים"));
+  arrMultipleQuestions = shuffle(DATA["tools"][currTool]["questions"]);
+}
+
+
 const backToMain = () => {
-    document.querySelector(".to-questions").removeEventListener("click", backToMain);
+    document.querySelector(".btn").removeEventListener("click", backToMain);
     document.querySelector(`.black-cover`).style.display = "none";
     document.querySelector(".multipleQuestionContainer").style.display = "none";
     document.querySelector("#main-page").style.pointerEvents = "all";
