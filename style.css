@@ -1,7 +1,11 @@
+@font-face {
+    font-family: heebo;
+    src: url("assets/fonts/Heebo-VariableFont_wght.ttf");
+}
+
 html {
     height: 100%;
 }
-
 
 .body {
     margin: 0;
@@ -11,11 +15,57 @@ html {
     background: linear-gradient(45deg, #3f66a9, pink);
 }
 
-@font-face {
-    font-family: heebo;
-    src: url("assets/fonts/Heebo-VariableFont_wght.ttf");
+/* about */
+.about-icon {
+    position: absolute;
+    top: 10vh;
+    left: 0;
+    width: 10vw;
+    height: auto;
 }
 
+.exit {
+    width: 10%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.till-icon {
+    width: 11vw;
+    height: auto;
+    position: absolute;
+    left: 81%;
+    top: 6%;
+}
+
+.about-title {
+    margin-top: 0;
+    margin-bottom: 2vh;
+    font-size: 1em;
+}
+
+.about-text {
+    font-size: 0.6em;
+    margin: 2vh auto;
+}
+
+#about {
+    top: 45%;
+    padding-bottom: 3vh;
+    display: none;
+}
+
+/* open screen */
+
+/* Dropdown */
+/* add later */
+
+/* main-page */
+#main-page {
+    display: none;
+}
 .delete-later {
     background-color: black;
     height: 10vh;
@@ -51,7 +101,7 @@ html {
     margin: 2vw 2vh;
 }
 
-/* question */
+/* questions */
 .black-cover {
     background-color: rgba(0, 0, 0, 0.595);
     width: 100vw;
@@ -68,14 +118,17 @@ html {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 85%;
-    /* height: 60%; */
     height: fit-content;
-    /* max-height: 80vh; */
     text-align: center;
     background-color: antiquewhite;
     padding: 3.5vh 5vw 5vh 5vw;
     border-radius: 10%;
     font-size: 1.7em;
+    /* display: none; */
+    z-index: 1;
+}
+
+#multipleQuestionContainer {
     display: none;
 }
 
@@ -93,35 +146,18 @@ html {
     
 }
 
-/* .pre-question {
-    box-sizing: border-box;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 85%;
-    height: 90%; Different
-    text-align: center;
-    background-color: antiquewhite;
-    padding: 0vh 4vw;
-    border-radius: 10%;
-    font-size: 1.7em;
-    display: none;
-} */
-
-.pre-tool {
+.curr-tool-pic {
     width: 65%;
     height: auto;
     border-radius: 0.3em;
 }
 
-.pre-title {
-    margin: 0vh auto 2vh;
-    font-size: 1.05em;
+.title {
+    margin: 0vh auto 1vh;
 }
 
-.pre-text {
-    font-size: 0.7em;
+.text {
+    font-size: 0.65em;
     margin: 0;
 }
 
@@ -129,10 +165,10 @@ html {
     box-sizing: border-box;
     padding: 1vh 0.5vw;
     margin-top: 2vh;
-    width: 50%;
-    font-size: 0.85em;
+    width: 70%;
+    font-size: 0.75em;
     border-radius: 0.3em;
     /* border: solid black 1px; */
     border: none;
-    background-color: rgb(250, 210, 157);
+    background-color: rgb(250, 210, 157)
 }

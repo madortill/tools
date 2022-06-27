@@ -5,8 +5,10 @@ let nMultipleCorrectAnswers = 0;
 let arrMultipleQuestions = [];
 let currTool;
 let visitedTools = [];
+let strChoosenBhd = "בהד-6";
+let strChoosenCourse = "קורס-1"; 
 // const
-const AMOUNT_OF_QUESTION = DATA.tools.amountOfQuestions; // how many questions we want out of the array
+const AMOUNT_OF_QUESTION = DATA[strChoosenBhd][strChoosenCourse]["tools"]["amountOfQuestions"]; // how many questions we want out of the array
 const DELAY_AFTER_QUESTION = 2000;
 const TOOL_NAMES = {
     "tool0":"מפתח צינורות",
@@ -22,14 +24,40 @@ const TOOL_NAMES = {
 --------------------------------------------------------------
 Description: */
 window.addEventListener("load", () => {
-  nTools = DATA.tools.length;
-  createMainPage();
+  nTools = DATA[strChoosenBhd][strChoosenCourse]["tools"].length;
+    // add drop down code
+  document.querySelector("#start").addEventListener("click", start);
 });
+
+const start = () => {
+  document.querySelector(".open").style.display = "none";
+  document.querySelector("#main-page").style.display = "block";
+  document.querySelector("#start").removeEventListener("click", start);
+  createMainPage();
+
+
+}
+
+const openAbout = () => {
+  document.querySelector(".about-icon").removeEventListener("click", openAbout);
+  document.querySelector("#about").style.display = "block";
+  document.querySelector("#main-page").style.pointerEvents = "none";
+  document.querySelector(`.black-cover`).style.display = "block";
+  document.querySelector(".exit").addEventListener("click", closeAbout);
+}
+
+const closeAbout = () => {
+  document.querySelector(".about-icon").addEventListener("click", openAbout);
+  document.querySelector("#about").style.display = "none";
+  document.querySelector("#main-page").style.pointerEvents = "all";
+  document.querySelector(`.black-cover`).style.display = "none";
+  document.querySelector(".exit").removeEventListener("click", closeAbout);
+}
 
 const createMainPage = () => {
   document
     .querySelector("#main-page")
-    .append(El("p", { cls: "main-title" }, "רשימת כלים"));
+    .append(El("p", { cls: "main-title" }, "רשימת כלים"), El("img", {cls: "about-icon", attributes: {src: "assets/media/about.png"}, alt: "אודות", listeners: {click: openAbout}}));
   let elPicContainer = El("div", { cls: "tool-container" });
   let elToolPic;
   for (let counter = 0; counter < 8; counter++) {
@@ -68,15 +96,17 @@ function shuffle(arr) {
 // Change innerHTML to El?
 const addPreQuestion = (e) => {
     currTool = e.currentTarget.id;
+    // document.querySelector("#main-page").style.display = "none";
     document.querySelector("#main-page").style.pointerEvents = "none";
     document.querySelector(`.black-cover`).style.display = "block";
-    document.querySelector(".multipleQuestionContainer").style.display = "block";
+    document.querySelector("#multipleQuestionContainer").style.display = "block";
     if (isVisited(currTool)) {
         showExplanation();
     } else {
-        document.querySelector(`.multipleQuestionContainer`).innerHTML = `<div class="pre-title">שם הכלי: ${DATA["tools"][currTool]["name"]}</div><img src="assets/media/${currTool}.png" alt="${DATA["tools"][currTool].name}" class="pre-tool"><p class="pre-text">לפתיחת ההסבר נדרש לוודא כי יש לך הכשרה מספקת לשימוש בכלי ולכן אתה נדרש לענות נכון לפחות על 2 שאלות<br> מתוך 3</p><button class="btn">לשאלות</button>`;
-        arrMultipleQuestions = shuffle(DATA["tools"][currTool]["questions"]);
-        document.querySelector(".btn").addEventListener("click", addContentToQuestion);
+      let toolName = DATA[strChoosenBhd][strChoosenCourse]["tools"][currTool]["name"];
+        document.querySelector(`#multipleQuestionContainer`).innerHTML = `<div class="title">שם הכלי: ${toolName}</div><img src="assets/media/${currTool}.png" alt="${toolName}}" class="curr-tool-pic"><p class="text">לפתיחת ההסבר נדרש לוודא כי יש לך הכשרה מספקת לשימוש בכלי ולכן אתה נדרש לענות נכון לפחות על 2 שאלות מתוך 3</p><button class="btn" id="to-questions">לשאלות</button>`;
+        arrMultipleQuestions = shuffle(DATA[strChoosenBhd][strChoosenCourse]["tools"][currTool]["questions"]);
+        document.querySelector("#to-questions").addEventListener("click", addContentToQuestion);
     }
 }
 
@@ -93,18 +123,18 @@ const isVisited = (toolId) => {
 --------------------------------------------------------------
 Description: */
 const addContentToQuestion = () => {
-  document.querySelector(`.multipleQuestionContainer`).innerHTML = "";
+  document.querySelector(`#multipleQuestionContainer`).innerHTML = "";
   // add question
   let question = El(
     "div",
     { cls: `multipleQuestion` },
     arrMultipleQuestions[nMultipleCurrentQuestion].question
   );
-  document.querySelector(`.multipleQuestionContainer`).append(question);
+  document.querySelector(`#multipleQuestionContainer`).append(question);
   // add answeres
   if (arrMultipleQuestions[nMultipleCurrentQuestion].type === "multiple") {
     let ansContainer = El("div", { cls: `ansContainer` });
-    document.querySelector(`.multipleQuestionContainer`).append(ansContainer);
+    document.querySelector(`#multipleQuestionContainer`).append(ansContainer);
     for (let i = 1; i <= 4; i++) {
       let answer = El(
         "div",
@@ -158,33 +188,31 @@ const questionsEnd = () => {
     visitedTools.push(currTool);
     showExplanation();
   } else {
-    document.querySelector(`.multipleQuestionContainer`).innerHTML = "";
-    document.querySelector(`.multipleQuestionContainer`).append(El("div", {cls:"fail"},
-    El("div", {cls:"pre-title"}, "פספסת כמה שאלות..."),
-    El("div", {cls: "pre-text"}, "אולי בפעם הבאה"), 
-    El("button", {cls: "btn", listeners: {click: backToMain}}, "לרשימת הכלים")));
+    document.querySelector(`#multipleQuestionContainer`).innerHTML = "";
+    document.querySelector(`#multipleQuestionContainer`).append(El("div", {cls:"fail"},
+    El("div", {cls:"title"}, "פספסת כמה שאלות..."),
+    El("div", {cls: "title"}, "אולי בפעם הבאה"), 
+    El("button", {cls: "btn", id: "to-main", listeners: {click: backToMain}}, "לרשימת הכלים")));
   }
   nMultipleCurrentQuestion = 0;
   nMultipleCorrectAnswers = 0;
 };
 
 const showExplanation = () => {
-  // document.querySelector(`.multipleQuestionContainer`).innerHTML = `<div class="pre-title">שם הכלי: ${DATA["tools"][currTool]["name"]}</div><img src="assets/media/${currTool}.png" alt="${DATA["tools"][currTool].name}" class="pre-tool"><p class="pre-text">הסבר: ${DATA["tools"][currTool]["explanation"]}</p><button class="btn">לרשימת הכלים</button>`;
-  // document.querySelector(".btn").addEventListener("click", backToMain);
-  document.querySelector(`.multipleQuestionContainer`).innerHTML = "";
-  document.querySelector(`.multipleQuestionContainer`).append(
-    El("div", {cls: "pre-title"}, `שם הכלי: ${DATA["tools"][currTool]["name"]}`), 
-    El("img", {attributes: {src: `assets/media/${currTool}.png`, alt: `${DATA["tools"][currTool].name}`}, cls: "pre-tool"}), 
-    El("p", {cls: "pre-text"}, `הסבר: ${DATA["tools"][currTool]["explanation"]}`), 
+  document.querySelector(`#multipleQuestionContainer`).innerHTML = "";
+  document.querySelector(`#multipleQuestionContainer`).append(
+    El("div", {cls: "title"}, `שם הכלי: ${DATA[strChoosenBhd][strChoosenCourse]["tools"][currTool]["name"]}`), 
+    El("img", {attributes: {src: `assets/media/${currTool}.png`, alt: `${DATA[strChoosenBhd][strChoosenCourse]["tools"][currTool].name}`}, cls: "curr-tool-pic"}), 
+    El("p", {cls: "text"}, `הסבר: ${DATA[strChoosenBhd][strChoosenCourse]["tools"][currTool]["explanation"]}`), 
     El("button", {cls: "btn", listeners: {"click": backToMain}}, "לרשימת הכלים"));
-  arrMultipleQuestions = shuffle(DATA["tools"][currTool]["questions"]);
+  arrMultipleQuestions = shuffle(DATA[strChoosenBhd][strChoosenCourse]["tools"][currTool]["questions"]);
 }
 
 
 const backToMain = () => {
     document.querySelector(".btn").removeEventListener("click", backToMain);
     document.querySelector(`.black-cover`).style.display = "none";
-    document.querySelector(".multipleQuestionContainer").style.display = "none";
+    document.querySelector("#multipleQuestionContainer").style.display = "none";
     document.querySelector("#main-page").style.pointerEvents = "all";
 
 }
