@@ -79,8 +79,10 @@ const TOOL_NAMES = {
 Description: */
 window.addEventListener("load", () => {
   document.querySelector(".loader").classList.add("fade");
-  for (let questionCounter = 0; questionCounter < TOOLS_NUM; questionCounter++) {
-    toolsInfo[`tool${Math.floor(questionCounter / 3)}`]["questions"].push(DATA[strChoosenBhd][strChoosenCourse]["tools"].questions[questionCounter]);
+  for (let toolCounter = 0; toolCounter < TOOLS_NUM; toolCounter++) {
+    for (let questionCounter = 0; questionCounter < AMOUNT_OF_QUESTION; questionCounter++) {
+      toolsInfo[`tool${toolCounter}`]["questions"].push(DATA[strChoosenBhd][strChoosenCourse]["tools"].questions[toolCounter * 3 + questionCounter]);
+    }
   }
   // add drop down code
   document.querySelector("#start").addEventListener("click", start);
@@ -173,6 +175,7 @@ const addPreQuestion = (e) => {
     arrMultipleQuestions = shuffle(
       toolsInfo[currTool]["questions"]
     );
+    console.log(arrMultipleQuestions);
     document
       .querySelector("#to-questions")
       .addEventListener("click", addContentToQuestion);
@@ -192,6 +195,7 @@ const isVisited = (toolId) => {
 --------------------------------------------------------------
 Description: */
 const addContentToQuestion = () => {
+  console.log(arrMultipleQuestions[nMultipleCurrentQuestion]);
   document.querySelector(`#multipleQuestionContainer`).innerHTML = "";
   // add question
   let question = El(
