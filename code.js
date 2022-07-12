@@ -118,7 +118,7 @@ const createMainPage = () => {
       El("img", { cls: "main-title", attributes: {src: "assets/media/title.svg"} },),
       El("img", {
         cls: "about-icon",
-        attributes: { src: "assets/media/about.png" },
+        attributes: { src: "assets/media/about.svg" },
         alt: "אודות",
         listeners: { click: openAbout },
       })

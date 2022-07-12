@@ -54,10 +54,10 @@ html {
 /* about */
 .about-icon {
     position: absolute;
-    top: 0vh;
-    left: 0;
-    width: 10vw;
-    height: auto;
+    top: 1vh;
+    left: 2vw;
+    width: 7.5vw;
+    height: auto
 }
 
 .exit {
