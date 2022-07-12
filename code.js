@@ -78,6 +78,7 @@ const TOOL_NAMES = {
 --------------------------------------------------------------
 Description: */
 window.addEventListener("load", () => {
+  createMainPage();
   document.querySelector(".loader").classList.add("fade");
   for (let toolCounter = 0; toolCounter < TOOLS_NUM; toolCounter++) {
     for (let questionCounter = 0; questionCounter < AMOUNT_OF_QUESTION; questionCounter++) {
@@ -92,7 +93,6 @@ const start = () => {
   document.querySelector(".open").style.display = "none";
   document.querySelector("#main-page").style.display = "block";
   document.querySelector("#start").removeEventListener("click", start);
-  createMainPage();
 };
 
 const openAbout = () => {
