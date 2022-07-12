@@ -1,6 +1,6 @@
 @font-face {
-    font-family: heebo;
-    src: url("assets/fonts/Heebo-VariableFont_wght.ttf");
+    font-family: rubik;
+    src: url("assets/fonts/Rubik-Medium.ttf");
 }
 
 html {
@@ -11,9 +11,9 @@ html {
     margin: 0;
     direction: rtl;
     font-size: 5vmin;
-    font-family: "heebo";
-    background: linear-gradient(45deg, #3f66a9, pink);
-    background-size: 100% 100%;
+    font-family: "rubik";
+    background-image: url("assets/media/background.svg");
+    background-size: 100vw 100vh;
     height: 100%;
 }
 
@@ -64,16 +64,16 @@ html {
     width: 10%;
     height: auto;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 2vh;
+    left: 3vw;
 }
 
 .till-icon {
-    width: 11vw;
+    width: 14vw;
     height: auto;
     position: absolute;
-    left: 81%;
-    top: 6%;
+    left: 78%;
+    top: 4%;
 }
 
 .about-title {
@@ -104,11 +104,9 @@ html {
 }
 
 .main-title {
-    text-align: center;
-    font-size: 2.5em;
-    margin-top: 1.5vh;
-    /* position: absolute;
-    top: 1vh; */
+    width: 80vw;
+    height: auto;
+    margin: 4vh 10vw;
 }
 
 .tool-container {
@@ -125,8 +123,11 @@ html {
 
 .tool-pic {
     width: auto;
-    height: 16vh;
+    height: 15vh;
+    padding: 1vh 1vw;
     margin: 2vw 2vh;
+    background-color: rgba(255, 255, 255, 0.585);
+    border-radius: 1em;
 }
 
 /* questions */
@@ -148,12 +149,13 @@ html {
     width: 85%;
     height: fit-content;
     text-align: center;
-    background-color: antiquewhite;
+    background-color: rgba(0,0,0,0.45);
     padding: 3.5vh 5vw 5vh 5vw;
-    border-radius: 10%;
-    font-size: 1.7em;
-    /* display: none; */
+    border: white solid 2vw;
+    border-radius: 0.5em;
+    font-size: 1.8em;
     z-index: 1;
+    color: white;
 }
 
 #multipleQuestionContainer {
@@ -161,9 +163,10 @@ html {
 }
 
 .ans {
-    background-color: rgb(250, 210, 157);
-    border-radius: 0.36em;
+    background-image: url("assets/media/questionWood.svg");
+    background-size: 100% 100%;
     width: 80%;
+    padding-bottom: 1vh;
     margin: 2vh auto;
 }
 
@@ -178,6 +181,9 @@ html {
     width: 65%;
     height: auto;
     border-radius: 0.3em;
+    padding: 1vh 1vw;
+    background-color: rgba(255, 255, 255, 0.585);
+    border-radius: 1em;
 }
 
 .title {
@@ -192,11 +198,10 @@ html {
 .btn {
     box-sizing: border-box;
     padding: 1vh 0.5vw;
-    margin-top: 2vh;
+    margin: auto;
+    margin-top: 3vh;
     width: 70%;
     font-size: 0.75em;
-    border-radius: 0.3em;
-    /* border: solid black 1px; */
-    border: none;
-    background-color: rgb(250, 210, 157)
+    background-image: url(assets/media/questionWood.svg);
+    background-size: 100% 100%;
 }

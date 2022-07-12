@@ -99,7 +99,7 @@ const openAbout = () => {
   document.querySelector(".about-icon").removeEventListener("click", openAbout);
   document.querySelector("#about").style.display = "block";
   document.querySelector("#main-page").style.pointerEvents = "none";
-  document.querySelector(`.black-cover`).style.display = "block";
+  document.querySelector(`#main-page`).style.display = "none";
   document.querySelector(".exit").addEventListener("click", closeAbout);
 };
 
@@ -107,7 +107,7 @@ const closeAbout = () => {
   document.querySelector(".about-icon").addEventListener("click", openAbout);
   document.querySelector("#about").style.display = "none";
   document.querySelector("#main-page").style.pointerEvents = "all";
-  document.querySelector(`.black-cover`).style.display = "none";
+  document.querySelector(`#main-page`).style.display = "block";
   document.querySelector(".exit").removeEventListener("click", closeAbout);
 };
 
@@ -115,7 +115,7 @@ const createMainPage = () => {
   document
     .querySelector("#main-page")
     .append(
-      El("p", { cls: "main-title" }, "רשימת כלים"),
+      El("img", { cls: "main-title", attributes: {src: "assets/media/title.svg"} },),
       El("img", {
         cls: "about-icon",
         attributes: { src: "assets/media/about.png" },
@@ -129,7 +129,7 @@ const createMainPage = () => {
     elToolPic = El("img", {
       cls: "tool-pic",
       id: `tool${counter}`,
-      attributes: { src: `assets/media/tool${counter}.png` },
+      attributes: { src: `assets/media/tool${counter}.svg` },
       listeners: { click: addPreQuestion },
     });
     elPicContainer.append(elToolPic);
@@ -162,7 +162,7 @@ const addPreQuestion = (e) => {
   currTool = e.currentTarget.id;
   // document.querySelector("#main-page").style.display = "none";
   document.querySelector("#main-page").style.pointerEvents = "none";
-  document.querySelector(`.black-cover`).style.display = "block";
+  document.querySelector(`#main-page`).style.display = "none";
   document.querySelector("#multipleQuestionContainer").style.display = "block";
   if (isVisited(currTool)) {
     showExplanation();
@@ -171,7 +171,7 @@ const addPreQuestion = (e) => {
       toolsInfo[currTool]["name"];
     document.querySelector(
       `#multipleQuestionContainer`
-    ).innerHTML = `<div class="title">שם הכלי: ${toolName}</div><img src="assets/media/${currTool}.png" alt="${toolName}}" class="curr-tool-pic"><p class="text">לפתיחת ההסבר נדרש לוודא כי יש לך הכשרה מספקת לשימוש בכלי ולכן אתה נדרש לענות נכון לפחות על 2 שאלות מתוך 3</p><button class="btn" id="to-questions">לשאלות</button>`;
+    ).innerHTML = `<div class="title">שם הכלי: ${toolName}</div><img src="assets/media/${currTool}.svg" alt="${toolName}}" class="curr-tool-pic"><p class="text">לפתיחת ההסבר נדרש לוודא כי יש לך הכשרה מספקת לשימוש בכלי ולכן אתה נדרש לענות נכון לפחות על 2 שאלות מתוך 3</p><div class="btn" id="to-questions">לשאלות</div>`;
     arrMultipleQuestions = shuffle(
       toolsInfo[currTool]["questions"]
     );
@@ -255,10 +255,10 @@ const onClickAnswer = (event) => {
     event.currentTarget.classList[1] ===
     String(arrMultipleQuestions[nMultipleCurrentQuestion].correctAns)
   ) {
-    event.currentTarget.style.backgroundColor = "green";
+    event.currentTarget.style.backgroundImage = "url('assets/media/correctQuestion.svg')";
     nMultipleCorrectAnswers++;
   } else {
-    event.currentTarget.style.backgroundColor = "red";
+    event.currentTarget.style.backgroundImage= "url('assets/media/wrongQuestion.svg')";
   }
 
   // send to next question.
@@ -290,7 +290,7 @@ const questionsEnd = () => {
           El("div", { cls: "title" }, "פספסת כמה שאלות..."),
           El("div", { cls: "title" }, "אולי בפעם הבאה"),
           El(
-            "button",
+            "div",
             { cls: "btn", id: "to-main", listeners: { click: backToMain } },
             "לרשימת הכלים"
           )
@@ -313,7 +313,7 @@ const showExplanation = () => {
       ),
       El("img", {
         attributes: {
-          src: `assets/media/${currTool}.png`,
+          src: `assets/media/${currTool}.svg`,
           alt: `${toolsInfo[currTool].name}`,
         },
         cls: "curr-tool-pic",
@@ -324,7 +324,7 @@ const showExplanation = () => {
         `הסבר: ${toolsInfo[currTool]["explanation"]}`
       ),
       El(
-        "button",
+        "div",
         { cls: "btn", listeners: { click: backToMain } },
         "לרשימת הכלים"
       )
@@ -336,7 +336,7 @@ const showExplanation = () => {
 
 const backToMain = () => {
   document.querySelector(".btn").removeEventListener("click", backToMain);
-  document.querySelector(`.black-cover`).style.display = "none";
+  document.querySelector(`#main-page`).style.display = "block";
   document.querySelector("#multipleQuestionContainer").style.display = "none";
   document.querySelector("#main-page").style.pointerEvents = "all";
 };
