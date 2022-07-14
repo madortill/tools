@@ -50,6 +50,38 @@ html {
     }
 }
 
+/* open-screen */
+#start {
+    filter: grayscale(50%);
+}
+
+.dropdown {
+    margin: 3vh 1vw 5vh 1vw;
+    font-size: 5vmin;
+    border-radius: 0.2em;
+    font-family: rubik;
+    border: none;
+    padding: 1vh 2vw;
+}
+
+select {
+    color: #069adc;
+    background-color: #c7e0e4;
+}
+
+option {
+    background-color: #e1e7e8;
+    color: black;
+}
+
+option:disabled {
+    color: #069adc;
+    background-color: #c7e0e4;
+}
+
+select:disabled {
+    background-color: rgb(119, 138, 151);
+}
 
 /* about */
 .about-icon {

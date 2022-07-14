@@ -5,8 +5,10 @@ let nMultipleCorrectAnswers = 0;
 let arrMultipleQuestions = [];
 let currTool;
 let visitedTools = [];
-let strChoosenBhd = "בהד-6";
-let strChoosenCourse = "קורס-1";
+let strChoosenBhd;
+let strChoosenCourse;
+let AMOUNT_OF_QUESTION;
+let courses;
 let toolsInfo = {
   tool0: {
     name: "פטיש",
@@ -60,8 +62,6 @@ let toolsInfo = {
 
 // const
 const TOOLS_NUM = 8;
-const AMOUNT_OF_QUESTION =
-  DATA[strChoosenBhd][strChoosenCourse]["tools"]["amountOfQuestions"]; // how many questions we want out of the array
 const DELAY_AFTER_QUESTION = 2000;
 const TOOL_NAMES = {
   tool0: "מפתח צינורות",
@@ -74,22 +74,66 @@ const TOOL_NAMES = {
   tool7: "מפתח צינורות",
 };
 
+
 /* loading function
 --------------------------------------------------------------
 Description: */
 window.addEventListener("load", () => {
+  createCourseList(courses);
   createMainPage();
   document.querySelector(".loader").classList.add("fade");
+  // add drop down code
+  handleFirstPage();
+});
+
+const createCourseList = () => {
+  courses = {};
+  Object.keys(DATA).forEach((key) => {
+    courses[key] = [...Object.keys(DATA[key])];
+  });
+}
+
+const handleFirstPage = () => {
+  for (key in courses) {
+    document.getElementById("bahad").append(El("option", { attributes: { value: `${key}` } }, `${addSpace(key)}`));
+  }
+  document.getElementById("bahad").addEventListener("input", addCourseSelection);
+};
+
+const addCourseSelection = () => {
+  document.getElementById("course").disabled = false;
+  document.getElementById("course").innerHTML = "";
+  document.getElementById("course").append(El("option", { attributes: { value: ``, disabled: "", selected: "" } },`באיזה קורס אתם?`));
+  let courseList = courses[document.getElementById("bahad").value];
+  for (course in courseList) {
+    document.getElementById("course").append(
+        El("option",{ attributes: { value: `${courseList[course]}` } },`${addSpace(courseList[course])}`)
+      );
+  }
+  document.getElementById("course").addEventListener("input", () => {
+    document.getElementById("start").style.filter = "grayscale(0%)";
+    document.getElementById("start").addEventListener("click", start);
+  });
+};
+
+const addSpace = (phrase) => {
+  return phrase.replace(/-/g, " ");
+};
+
+// main code
+const start = () => {
+  strChoosenBhd = document.getElementById("bahad").value;
+  strChoosenCourse = document.getElementById("course").value;
+  console.log(DATA[strChoosenBhd][strChoosenCourse]["tools"])
+  AMOUNT_OF_QUESTION = DATA[strChoosenBhd][strChoosenCourse]["tools"]["amountOfQuestions"]; // how many questions we want out of the array
   for (let toolCounter = 0; toolCounter < TOOLS_NUM; toolCounter++) {
     for (let questionCounter = 0; questionCounter < AMOUNT_OF_QUESTION; questionCounter++) {
+      console.log(toolCounter * 3 + questionCounter)
       toolsInfo[`tool${toolCounter}`]["questions"].push(DATA[strChoosenBhd][strChoosenCourse]["tools"].questions[toolCounter * 3 + questionCounter]);
     }
   }
-  // add drop down code
-  document.querySelector("#start").addEventListener("click", start);
-});
-
-const start = () => {
+  console.log(toolsInfo)
+  document.getElementById("start").removeEventListener("click", start);
   document.querySelector(".open").style.display = "none";
   document.querySelector("#main-page").style.display = "block";
   document.querySelector("#start").removeEventListener("click", start);
@@ -175,7 +219,6 @@ const addPreQuestion = (e) => {
     arrMultipleQuestions = shuffle(
       toolsInfo[currTool]["questions"]
     );
-    console.log(arrMultipleQuestions);
     document
       .querySelector("#to-questions")
       .addEventListener("click", addContentToQuestion);
@@ -195,8 +238,8 @@ const isVisited = (toolId) => {
 --------------------------------------------------------------
 Description: */
 const addContentToQuestion = () => {
-  console.log(arrMultipleQuestions[nMultipleCurrentQuestion]);
   document.querySelector(`#multipleQuestionContainer`).innerHTML = "";
+  console.log(arrMultipleQuestions[nMultipleCurrentQuestion])
   // add question
   let question = El(
     "div",
