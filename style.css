@@ -15,6 +15,7 @@ html {
     background-image: url("assets/media/background.svg");
     background-size: 100vw 100vh;
     height: 100%;
+
 }
 
 /* loader */
@@ -125,11 +126,6 @@ select:disabled {
     display: none;
 }
 
-/* open screen */
-
-/* Dropdown */
-/* add later */
-
 /* main-page */
 #main-page {
     display: none;
@@ -141,12 +137,13 @@ select:disabled {
     margin: 4vh 10vw;
 }
 
-.tool-container {
+.tools-container {
     display: flex;
     justify-content: space-around;
-    align-content: space-between;
+    align-content: space-evenly;
     flex-wrap: wrap;
     width: 90%;
+    height: 68%;
     position: absolute;
     top: 13vh;
     left: 50%;
@@ -154,12 +151,32 @@ select:disabled {
 }
 
 .tool-pic {
-    width: auto;
-    height: 15vh;
+    width: 31vw;
+    height: 17vh;
     padding: 1vh 1vw;
     margin: 2vw 2vh;
     background-color: rgba(255, 255, 255, 0.585);
     border-radius: 1em;
+    background-size: 90% 90%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-origin: content-box;
+}
+
+
+.v-sign {
+    width: 6vw;
+    margin: 1.5vh 2vw;
+    height: auto;
+    display: none;
+}
+
+.delete {
+    height: 10vh;
+    width: 100vw;
+    background-color: black;
+    position: absolute;
+    bottom: 0;
 }
 
 /* questions */
@@ -182,12 +199,14 @@ select:disabled {
     height: fit-content;
     text-align: center;
     background-color: rgba(0,0,0,0.45);
-    padding: 3.5vh 5vw 5vh 5vw;
+    padding: 3.5vh 5vw 2vh 5vw;
     border: white solid 2vw;
     border-radius: 0.5em;
     font-size: 1.8em;
     z-index: 1;
     color: white;
+    max-height: 85vh;
+    overflow: auto;
 }
 
 #multipleQuestionContainer {
@@ -236,4 +255,8 @@ select:disabled {
     font-size: 0.75em;
     background-image: url(assets/media/questionWood.svg);
     background-size: 100% 100%;
+}
+
+.question-num {
+    font-size: 0.47em;
 }

@@ -16,10 +16,10 @@ let toolsInfo = {
       "הפטיש הוא חלק ממשפחת הכלים לשימוש יומיומי. הפטיש מאפשר לתלות מדפים ומסייע בתיקון תקלות בתשתיות ומבנים.",
     questions: [],
   },
-  tool1: {
-    name: "מפתח ברגים",
+    tool1: {
+    name: "קאטר",
     explanation:
-      "מפתח הברגים הוא חלק ממשפחת הכלים הביתיים. הוא מאפשר להדק ולפתוח סוגי ברגים שונים וגם כדי להחזיק דיבלים.",
+      "הקאטר נחשב חלק ממשפחת הכלים לפירוק פצצות ויכול לשמש לחיתוך כבלי החשמל שמפעילים את הפצצה.",
     questions: [],
   },
   tool2: {
@@ -46,22 +46,23 @@ let toolsInfo = {
       "סרט המידה הוא חלק ממשפחת הכלים לשימוש יומיומי והוא משמש למדידת גדלים של רהיטים או מידות של בגדים.",
     questions: [],
   },
-  tool6: {
-    name: "אזמל",
-    explanation:
-      "האיזמל הוא חלק ממשפחת הכלים למקצוענים בלבד, והוא משמש לחציבה ולפיסול של אבנים.",
-    questions: [],
-  },
-  tool7: {
-    name: "קאטר",
-    explanation:
-      "הקאטר נחשב חלק ממשפחת הכלים לפירוק פצצות ויכול לשמש לחיתוך כבלי החשמל שמפעילים את הפצצה.",
-    questions: [],
-  },
+  // tool6: {
+  //   name: "אזמל",
+  //   explanation:
+  //     "האיזמל הוא חלק ממשפחת הכלים למקצוענים בלבד, והוא משמש לחציבה ולפיסול של אבנים.",
+  //   questions: [],
+  // },
+    // tool7: {
+  //   name: "מפתח ברגים",
+  //   explanation:
+  //     "מפתח הברגים הוא חלק ממשפחת הכלים הביתיים. הוא מאפשר להדק ולפתוח סוגי ברגים שונים וגם כדי להחזיק דיבלים.",
+  //   questions: [],
+  // },
+
 };
 
 // const
-const TOOLS_NUM = 8;
+const TOOLS_NUM = 6;
 const DELAY_AFTER_QUESTION = 2000;
 const TOOL_NAMES = {
   tool0: "מפתח צינורות",
@@ -82,7 +83,6 @@ window.addEventListener("load", () => {
   createCourseList(courses);
   createMainPage();
   document.querySelector(".loader").classList.add("fade");
-  // add drop down code
   handleFirstPage();
 });
 
@@ -124,15 +124,12 @@ const addSpace = (phrase) => {
 const start = () => {
   strChoosenBhd = document.getElementById("bahad").value;
   strChoosenCourse = document.getElementById("course").value;
-  console.log(DATA[strChoosenBhd][strChoosenCourse]["tools"])
   AMOUNT_OF_QUESTION = DATA[strChoosenBhd][strChoosenCourse]["tools"]["amountOfQuestions"]; // how many questions we want out of the array
   for (let toolCounter = 0; toolCounter < TOOLS_NUM; toolCounter++) {
     for (let questionCounter = 0; questionCounter < AMOUNT_OF_QUESTION; questionCounter++) {
-      console.log(toolCounter * 3 + questionCounter)
       toolsInfo[`tool${toolCounter}`]["questions"].push(DATA[strChoosenBhd][strChoosenCourse]["tools"].questions[toolCounter * 3 + questionCounter]);
     }
   }
-  console.log(toolsInfo)
   document.getElementById("start").removeEventListener("click", start);
   document.querySelector(".open").style.display = "none";
   document.querySelector("#main-page").style.display = "block";
@@ -167,15 +164,17 @@ const createMainPage = () => {
         listeners: { click: openAbout },
       })
     );
-  let elPicContainer = El("div", { cls: "tool-container" });
+  let elPicContainer = El("div", { cls: "tools-container" });
   let elToolPic;
-  for (let counter = 0; counter < 8; counter++) {
-    elToolPic = El("img", {
+  for (let counter = 0; counter < TOOLS_NUM; counter++) {
+    elToolPic = 
+    El("div", {
       cls: "tool-pic",
       id: `tool${counter}`,
-      attributes: { src: `assets/media/tool${counter}.svg` },
+      attributes: { style: `background-image: url(assets/media/tool${counter}.svg);` },
       listeners: { click: addPreQuestion },
-    });
+    },
+    El("img", {attributes: {src: "assets/media/V.svg"}, cls: "v-sign", id: `tool${counter}-v-sign`}));
     elPicContainer.append(elToolPic);
   }
   document.querySelector("#main-page").append(elPicContainer);
@@ -239,7 +238,7 @@ const isVisited = (toolId) => {
 Description: */
 const addContentToQuestion = () => {
   document.querySelector(`#multipleQuestionContainer`).innerHTML = "";
-  console.log(arrMultipleQuestions[nMultipleCurrentQuestion])
+  // document.querySelector(`#multipleQuestionContainer`).append(El("div", {id: "question-number", classes: ["about-text", "question-num"]}, `שאלה ${nMultipleCurrentQuestion + 1} מתוך ${AMOUNT_OF_QUESTION}`));
   // add question
   let question = El(
     "div",
@@ -259,6 +258,8 @@ const addContentToQuestion = () => {
       );
       document.querySelector(`.ansContainer`).append(answer);
     }
+    document.querySelector(`#multipleQuestionContainer`).append(El("div", {id: "question-number", classes: ["about-text", "question-num"]}, `שאלה ${nMultipleCurrentQuestion + 1} מתוך ${AMOUNT_OF_QUESTION}`))
+    scaleFontSize(document.querySelector(`#multipleQuestionContainer`));
   } else {
     let ansContainer = El(
       "div",
@@ -283,6 +284,32 @@ const addContentToQuestion = () => {
     document.querySelector(`#multipleQuestionContainer`).append(ansContainer);
   }
 };
+
+/* scaleFontSize
+--------------------------------------------------------------
+Description: controls text fit to container*/
+function scaleFontSize(element) {
+  console.log(element)
+  // We only want to scale down long text, so first we reset
+  // font-size to 100%
+  element.style.fontSize = "1.8em";
+
+  // Now we chceck if the content is wider than parent
+  // If so, then reduce letter spacing a tiny bit, maybe it's enough
+  if (element.scrollHeight > element.clientHeight) {
+      element.style.letterSpacing = "-0.05em";
+  }
+
+  // We check the content width oncemore and if it still doesn't fit
+  // then we reduce font size by 80%, but also reset letter spacing to 0 for legibility.
+  if (element.scrollHeight > element.clientHeight) {
+      element.style.letterSpacing = "0";
+      element.style.fontSize = `${element.clientHeight/23}px`;
+  }
+
+  // Text which is still longer will get truncated by the CSS rule ellipsis
+
+}
 
 /* onClickAnswer
 --------------------------------------------------------------
@@ -320,7 +347,6 @@ const onClickAnswer = (event) => {
 Description: for multiple and binary questions or for complete the sentence */
 const questionsEnd = () => {
   if (nMultipleCorrectAnswers >= 2) {
-    visitedTools.push(currTool);
     showExplanation();
   } else {
     document.querySelector(`#multipleQuestionContainer`).innerHTML = "";
@@ -345,6 +371,9 @@ const questionsEnd = () => {
 };
 
 const showExplanation = () => {
+  visitedTools.push(currTool);
+  console.log(document.getElementById(currTool))
+  document.getElementById(`${currTool}-v-sign`).style.display = "block";
   document.querySelector(`#multipleQuestionContainer`).innerHTML = "";
   document
     .querySelector(`#multipleQuestionContainer`)
@@ -372,9 +401,6 @@ const showExplanation = () => {
         "לרשימת הכלים"
       )
     );
-  arrMultipleQuestions = shuffle(
-    toolsInfo[currTool]["questions"]
-  );
 };
 
 const backToMain = () => {
