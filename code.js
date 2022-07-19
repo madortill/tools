@@ -46,20 +46,9 @@ let toolsInfo = {
       "סרט המידה הוא חלק ממשפחת הכלים לשימוש יומיומי והוא משמש למדידת גדלים של רהיטים או מידות של בגדים.",
     questions: [],
   },
-  // tool6: {
-  //   name: "אזמל",
-  //   explanation:
-  //     "האיזמל הוא חלק ממשפחת הכלים למקצוענים בלבד, והוא משמש לחציבה ולפיסול של אבנים.",
-  //   questions: [],
-  // },
-    // tool7: {
-  //   name: "מפתח ברגים",
-  //   explanation:
-  //     "מפתח הברגים הוא חלק ממשפחת הכלים הביתיים. הוא מאפשר להדק ולפתוח סוגי ברגים שונים וגם כדי להחזיק דיבלים.",
-  //   questions: [],
-  // },
-
 };
+
+/*  REMOVE ACCEST TO strChoosenBhd and strChoosenCourse. CALL IT ONLY ONCE WHEN CREATING THE DATA! */
 
 // const
 const TOOLS_NUM = 6;
@@ -199,11 +188,8 @@ function shuffle(arr) {
   return arr;
 }
 
-// Change display to flex?
-// Change innerHTML to El?
 const addPreQuestion = (e) => {
   currTool = e.currentTarget.id;
-  // document.querySelector("#main-page").style.display = "none";
   document.querySelector("#main-page").style.pointerEvents = "none";
   document.querySelector(`#main-page`).style.display = "none";
   document.querySelector("#multipleQuestionContainer").style.display = "block";
@@ -238,7 +224,7 @@ const isVisited = (toolId) => {
 Description: */
 const addContentToQuestion = () => {
   document.querySelector(`#multipleQuestionContainer`).innerHTML = "";
-  // document.querySelector(`#multipleQuestionContainer`).append(El("div", {id: "question-number", classes: ["about-text", "question-num"]}, `שאלה ${nMultipleCurrentQuestion + 1} מתוך ${AMOUNT_OF_QUESTION}`));
+  
   // add question
   let question = El(
     "div",
@@ -246,6 +232,7 @@ const addContentToQuestion = () => {
     arrMultipleQuestions[nMultipleCurrentQuestion].question
   );
   document.querySelector(`#multipleQuestionContainer`).append(question);
+  
   // add answeres
   if (arrMultipleQuestions[nMultipleCurrentQuestion].type === "multiple") {
     let ansContainer = El("div", { cls: `ansContainer` });
@@ -294,21 +281,18 @@ function scaleFontSize(element) {
   // font-size to 100%
   element.style.fontSize = "1.8em";
 
-  // Now we chceck if the content is wider than parent
+  // Now we chceck if the content is higher than parent
   // If so, then reduce letter spacing a tiny bit, maybe it's enough
   if (element.scrollHeight > element.clientHeight) {
       element.style.letterSpacing = "-0.05em";
   }
 
-  // We check the content width oncemore and if it still doesn't fit
-  // then we reduce font size by 80%, but also reset letter spacing to 0 for legibility.
+  // We check the content height oncemore and if it still doesn't fit
+  // then we reduce font size, but also reset letter spacing to 0 for legibility.
   if (element.scrollHeight > element.clientHeight) {
       element.style.letterSpacing = "0";
       element.style.fontSize = `${element.clientHeight/23}px`;
   }
-
-  // Text which is still longer will get truncated by the CSS rule ellipsis
-
 }
 
 /* onClickAnswer
