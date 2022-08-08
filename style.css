@@ -209,6 +209,12 @@ select:disabled {
     overflow: auto;
 }
 
+.checkButtonSentence {
+    width: 50%;
+    /* filter: drop-shadow(2px 2px black); */
+
+}
+
 #multipleQuestionContainer {
     display: none;
 }
@@ -260,3 +266,65 @@ select:disabled {
 .question-num {
     font-size: 0.47em;
 }
+
+.grayscale {
+    filter: grayscale(100%);
+}
+
+.ansContainerPic {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.questionPic {
+    width: 35vw;
+    display: block;
+    margin: 0.5vh auto;
+    border: black solid 3px;
+}
+
+/* complete the sentence */
+.sentence {
+    display: inline-block;
+    padding: 0.4em;
+    font-size: 0.7em;
+}
+
+.sentenceContainer{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.dropDown {
+    display: inline-block;
+    padding: 0.4em;
+}
+
+.dropDownTitle {
+    background-image: url(assets/media/questionWood.svg);
+    background-size: 100% 100%;
+    display: block;
+    padding: 0.4em;
+    font-size: 0.8em;
+    margin-bottom: -1vh;
+    margin-top: -3vh;
+
+}
+
+.dropDownItem {
+    background-image: url(assets/media/questionWood.svg);
+    background-size: 100% 100%;
+    padding: 0.4em;
+    font-size: 0.8em;
+}
+
+.questionPicAns {
+    width: 29vw;
+    display: block;
+    margin: 0.5vh auto;
+    border: solid 5px rgba(0,0,0,0);
+    padding: 0;
+}
+

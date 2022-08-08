@@ -1,10 +1,9 @@
-// question
+//question
 let nMultipleCurrentQuestion = 0;
 let nMultipleCorrectAnswers = 0;
 let strCurrentAns;
 
 // const
-const AMOUNT_OF_QUESTION = 2; // how many questions we want out of the array
 const DELAY_AFTER_QUESTION = 3000;
 
 /* addContentToQuestion
@@ -42,7 +41,7 @@ const addContentToQuestion = () => {
             ansContainer = El("div", {classes: [`ansContainer`, `ansContainerPic`]},);
             document.querySelector(`#multipleQuestionContainer`).append(ansContainer);
             for(let i = 0; i < arrThisLomdaData[nMultipleCurrentQuestion].answers.length ; i++){
-                let answer = El("img", {classes: [`questionPic`, `ans${i + 1}`, `ans`],attributes: {src: arrThisLomdaData[nMultipleCurrentQuestion].answers[i]}, listeners: {click : onClickAnswer}}, arrThisLomdaData[nMultipleCurrentQuestion][`ans${i}`]);
+                let answer = El("img", {classes: [`questionPicAns`, `ans${i + 1}`],attributes: {src: arrThisLomdaData[nMultipleCurrentQuestion].answers[i]}, listeners: {click : onClickAnswer}}, arrThisLomdaData[nMultipleCurrentQuestion][`ans${i}`]);
                 document.querySelector(`.ansContainer`).append(answer);
             }    
             break;
@@ -88,19 +87,31 @@ const addContentToQuestion = () => {
         document.querySelector(`.multipleQuestion`).append(img);
     }
     //create check button (without listener)
-    let check =  El("div", {cls: `checkButtonSentence`}, "בדיקה");
-    document.querySelector(`.multipleQuestionContainer`).append(check);
+    let check =  El("img", {classes: [`checkButtonSentence`, "grayscale"], attributes: {src: "assets/media/check.svg"}}, "בדיקה");
+    document.querySelector(`#multipleQuestionContainer`).append(check);
     };
    /* onClickAnswer
   --------------------------------------------------------------
   Description: */
   const onClickAnswer = (event) => {
+    if (arrThisLomdaData[nMultipleCurrentQuestion].type === "multipleAllPic") {
+        if(document.querySelector(`.${strCurrentAns}`)) {
+            document.querySelector(`.${strCurrentAns}`).style.border = "solid 5px rgba(0,0,0,0)";
+        }
+        strCurrentAns = event.currentTarget.classList[1];
+        document.querySelector(`.${strCurrentAns}`).style.border = "solid 5px white"; // Change graphics
+        document.querySelector(`.checkButtonSentence`).addEventListener("click", checkAnswer);
+        document.querySelector(`.checkButtonSentence`).classList.remove("grayscale");
+    } else {
     if(document.querySelector(`.${strCurrentAns}`)) {
-        document.querySelector(`.${strCurrentAns}`).style.backgroundColor = "white";
+        document.querySelector(`.${strCurrentAns}`).style.backgroundImage = "url(assets/media/questionWood.svg)";
+        document.querySelector(`.${strCurrentAns}`).style.backgroundColor = "rgba(256, 256, 256, 0)"; // Change graphics
     }
     strCurrentAns = event.currentTarget.classList[1];
-    document.querySelector(`.${strCurrentAns}`).style.backgroundColor = "gray";
+    document.querySelector(`.${strCurrentAns}`).style.backgroundColor = "gray"; // Change graphics
     document.querySelector(`.checkButtonSentence`).addEventListener("click", checkAnswer);
+    document.querySelector(`.checkButtonSentence`).classList.remove("grayscale");
+    }
 }
 
 /* onClickAnswerSixChoices
@@ -108,29 +119,24 @@ const addContentToQuestion = () => {
 Description: */
 const onClickAnswerSixChoices = (event) => {
     let currAns = event.currentTarget.classList[1];
-    if(document.querySelector(`.${currAns}`).style.backgroundColor === "gray") {
-        document.querySelector(`.${currAns}`).style.backgroundColor = "white";
-        strCurrentAns = strCurrentAns.filter(e => e !== currAns);
-    } else if(strCurrentAns.length < arrThisLomdaData[nMultipleCurrentQuestion].correctAns.length) {
-        strCurrentAns.push(event.currentTarget.classList[1]);
-        document.querySelector(`.${currAns}`).style.backgroundColor = "gray";
-    }
-    if(strCurrentAns.length === arrThisLomdaData[nMultipleCurrentQuestion].correctAns.length){
-        document.querySelector(`.checkButtonSentence`).addEventListener("click", checkAnswer);
+    if (arrThisLomdaData[nMultipleCurrentQuestion].type === "multipleAllPic") {
+        console.log("Pic chosen");
     } else {
-        document.querySelector(`.checkButtonSentence`).removeEventListener("click", checkAnswer);
+        if(document.querySelector(`.${currAns}`).style.backgroundColor === "gray" /*Change*/) {
+            document.querySelector(`.${currAns}`).style.backgroundColor = "white";
+            strCurrentAns = strCurrentAns.filter(e => e !== currAns);
+        } else if(strCurrentAns.length < arrThisLomdaData[nMultipleCurrentQuestion].correctAns.length) {
+            strCurrentAns.push(event.currentTarget.classList[1]);
+            document.querySelector(`.${currAns}`).style.backgroundColor = "gray"; // Change graphics
+        }
+        if(strCurrentAns.length === arrThisLomdaData[nMultipleCurrentQuestion].correctAns.length){
+            document.querySelector(`.checkButtonSentence`).addEventListener("click", checkAnswer);
+            document.querySelector(`.checkButtonSentence`).classList.remove("grayscale");
+        } else {
+            document.querySelector(`.checkButtonSentence`).removeEventListener("click", checkAnswer);
+        }
     }
 } 
-    // // check if answer is correct
-    // if (
-    //   event.currentTarget.classList[1] ===
-    //   String(arrThisLomdaData[nMultipleCurrentQuestion].correctAns)
-    // ) {
-    //   event.currentTarget.style.backgroundImage = "url('assets/media/correctQuestion.svg')";
-    //   nMultipleCorrectAnswers++;
-    // } else {
-    //   event.currentTarget.style.backgroundImage= "url('assets/media/wrongQuestion.svg')";
-    // }
 
     /* controlDropDown
 --------------------------------------------------------------
@@ -138,12 +144,13 @@ Description: */
 const controlDropDown = () => {
     // remove listener and add drop down
     document.querySelector(`.dropDownTitle`).removeEventListener("click" , controlDropDown);
+    document.querySelector(`.dropDownTitle`).classList.add("grayscale");
     for(let i = 0; i < arrThisLomdaData[nMultipleCurrentQuestion].dropDownAns.length; i++){
         let dropDownItem = El("div", {classes: [`dropDownItem`, `ans${i}`, i], listeners: {click : selectAnswer}},arrThisLomdaData[nMultipleCurrentQuestion].dropDownAns[i]);
         document.querySelector(`.containerDropDown`).append(dropDownItem);
     }
     if(strCurrentAns) {
-        document.querySelector(`.${strCurrentAns}`).style.backgroundColor = "gray";
+        document.querySelector(`.${strCurrentAns}`).style.backgroundColor = "gray"; // Change graphics
     }
 }
 
@@ -153,10 +160,12 @@ Description: */
 const selectAnswer = (event) => {
     let currAns = event.currentTarget.classList[2];
     strCurrentAns = event.currentTarget.classList[1];
+    document.querySelector(`.dropDownTitle`).classList.remove("grayscale");
     document.querySelector(`.dropDownTitle`).innerHTML = arrThisLomdaData[nMultipleCurrentQuestion].dropDownAns[currAns];
     document.querySelector(`.containerDropDown`).innerHTML = ``;
     document.querySelector(`.dropDownTitle`).addEventListener("click", controlDropDown);
     document.querySelector(`.checkButtonSentence`).addEventListener("click", checkAnswer);
+    document.querySelector(`.checkButtonSentence`).classList.remove("grayscale");
 }
 
 /* compareOutOfOrder
@@ -175,7 +184,7 @@ const compareOutOfOrder = (arr1, arr2) => {
 Description: */
 const checkAnswer = () => {
     document.querySelector(`.checkButtonSentence`).removeEventListener("click", checkAnswer);
-    document.querySelector(`.multipleQuestionContainer`).style.pointerEvents ="none";
+    document.querySelector(`#multipleQuestionContainer`).style.pointerEvents ="none";
     if (arrThisLomdaData[nMultipleCurrentQuestion].type.includes("sixChoices")) {
         // color the answers acordingly
         strCurrentAns.forEach(e => {
@@ -209,11 +218,13 @@ const checkAnswer = () => {
     nMultipleCurrentQuestion++;
     strCurrentAns = undefined;
     setTimeout(() => {
+        document.querySelector(`#multipleQuestionContainer`).style.pointerEvents ="all";
         if(nMultipleCurrentQuestion <  AMOUNT_OF_QUESTION) {
             addContentToQuestion();
         } else {
             questionsEnd();
         }
+        scaleFontSize(document.querySelector(`#multipleQuestionContainer`));
     }, DELAY_AFTER_QUESTION) 
 }
 
@@ -236,6 +247,10 @@ const checkAnswer = () => {
     if (element.scrollHeight > element.clientHeight) {
         element.style.letterSpacing = "0";
         element.style.fontSize = `${element.clientHeight/23}px`;
+        }
+    // Make scrollable if the text is too big
+    if (element.scrollHeight > element.clientHeight) {
+        element.style.scroll = "scroll"
         }
   }
   

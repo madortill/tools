@@ -1,7 +1,4 @@
 
-// question
-let nMultipleCurrentQuestion = 0;
-let nMultipleCorrectAnswers = 0;
 let arrThisLomdaData = [];
 let currTool;
 let visitedTools = [];
@@ -52,7 +49,6 @@ let toolsInfo = {
 
 // const
 const TOOLS_NUM = 6;
-const DELAY_AFTER_QUESTION = 2000;
 const TOOL_NAMES = {
   tool0: "מפתח צינורות",
   tool1: "מפתח צינורות",
@@ -114,9 +110,11 @@ const start = () => {
   strChoosenBhd = document.getElementById("bahad").value;
   strChoosenCourse = document.getElementById("course").value;
   AMOUNT_OF_QUESTION = DATA[strChoosenBhd][strChoosenCourse]["tools"]["amountOfQuestions"]; // how many questions we want out of the array
+  console.log(DATA[strChoosenBhd][strChoosenCourse]["tools"].questions)
+  let questionList = shuffle(DATA[strChoosenBhd][strChoosenCourse]["tools"].questions)
   for (let toolCounter = 0; toolCounter < TOOLS_NUM; toolCounter++) {
     for (let questionCounter = 0; questionCounter < AMOUNT_OF_QUESTION; questionCounter++) {
-      toolsInfo[`tool${toolCounter}`]["questions"].push(DATA[strChoosenBhd][strChoosenCourse]["tools"].questions[toolCounter * 3 + questionCounter]);
+      toolsInfo[`tool${toolCounter}`]["questions"].push(questionList[toolCounter * 3 + questionCounter]);
     }
   }
   document.getElementById("start").removeEventListener("click", start);
@@ -217,141 +215,6 @@ const isVisited = (toolId) => {
     }
   }
   return false;
-};
-
-/* addContentToQuestion
---------------------------------------------------------------
-Description: */
-const addContentToQuestion = () => {
-  document.querySelector(`#multipleQuestionContainer`).innerHTML = "";
-  
-  // add question
-  let question = El(
-    "div",
-    { cls: `multipleQuestion` },
-    arrThisLomdaData[nMultipleCurrentQuestion].question
-  );
-  document.querySelector(`#multipleQuestionContainer`).append(question);
-  
-  // add answeres
-  if (arrThisLomdaData[nMultipleCurrentQuestion].type === "multiple") {
-    let ansContainer = El("div", { cls: `ansContainer` });
-    document.querySelector(`#multipleQuestionContainer`).append(ansContainer);
-    for (let i = 1; i <= 4; i++) {
-      let answer = El(
-        "div", {classes: [`multipleAns`, `ans${i}`, `ans`],
-          listeners: { click: onClickAnswer }},
-        arrThisLomdaData[nMultipleCurrentQuestion][`ans${i}`]
-      );
-      document.querySelector(`.ansContainer`).append(answer);
-    }
-    document.querySelector(`#multipleQuestionContainer`).append(El("div", {id: "question-number", classes: ["about-text", "question-num"]}, `שאלה ${nMultipleCurrentQuestion + 1} מתוך ${AMOUNT_OF_QUESTION}`))
-    scaleFontSize(document.querySelector(`#multipleQuestionContainer`));
-  } else {
-    let ansContainer = El(
-      "div",
-      { cls: `ansContainer` },
-      El(
-        "div",
-        {
-          classes: [`binaryAns`, `true`, `ans`],
-          listeners: { click: onClickAnswer },
-        },
-        "נכון"
-      ),
-      El(
-        "div",
-        {
-          classes: [`binaryAns`, `false`, `ans`],
-          listeners: { click: onClickAnswer },
-        },
-        "לא נכון"
-      )
-    );
-    document.querySelector(`#multipleQuestionContainer`).append(ansContainer);
-  }
-};
-
-/* scaleFontSize
---------------------------------------------------------------
-Description: controls text fit to container*/
-function scaleFontSize(element) {
-  console.log(element)
-  // We only want to scale down long text, so first we reset
-  // font-size to 100%
-  element.style.fontSize = "1.8em";
-
-  // Now we chceck if the content is higher than parent
-  // If so, then reduce letter spacing a tiny bit, maybe it's enough
-  if (element.scrollHeight > element.clientHeight) {
-      element.style.letterSpacing = "-0.05em";
-  }
-
-  // We check the content height oncemore and if it still doesn't fit
-  // then we reduce font size, but also reset letter spacing to 0 for legibility.
-  if (element.scrollHeight > element.clientHeight) {
-      element.style.letterSpacing = "0";
-      element.style.fontSize = `${element.clientHeight/23}px`;
-  }
-}
-
-/* onClickAnswer
---------------------------------------------------------------
-Description: */
-const onClickAnswer = (event) => {
-  // remove listeners
-  let arrAns = document.querySelectorAll(`.ans`);
-  for (let i = 0; i < arrAns.length; i++) {
-    arrAns[i].removeEventListener("click", onClickAnswer);
-  }
-  // check if answer is correct
-  if (
-    event.currentTarget.classList[1] ===
-    String(arrThisLomdaData[nMultipleCurrentQuestion].correctAns)
-  ) {
-    event.currentTarget.style.backgroundImage = "url('assets/media/correctQuestion.svg')";
-    nMultipleCorrectAnswers++;
-  } else {
-    event.currentTarget.style.backgroundImage= "url('assets/media/wrongQuestion.svg')";
-  }
-
-  // send to next question.
-  nMultipleCurrentQuestion++;
-  setTimeout(() => {
-    if (nMultipleCurrentQuestion < AMOUNT_OF_QUESTION) {
-      addContentToQuestion();
-    } else {
-      questionsEnd();
-    }
-  }, DELAY_AFTER_QUESTION);
-};
-
-/* questionsEnd
---------------------------------------------------------------
-Description: for multiple and binary questions or for complete the sentence */
-const questionsEnd = () => {
-  if (nMultipleCorrectAnswers >= 2) {
-    showExplanation();
-  } else {
-    document.querySelector(`#multipleQuestionContainer`).innerHTML = "";
-    document
-      .querySelector(`#multipleQuestionContainer`)
-      .append(
-        El(
-          "div",
-          { cls: "fail" },
-          El("div", { cls: "title" }, "פספסת כמה שאלות..."),
-          El("div", { cls: "title" }, "אולי בפעם הבאה"),
-          El(
-            "div",
-            { cls: "btn", id: "to-main", listeners: { click: backToMain } },
-            "לרשימת הכלים"
-          )
-        )
-      );
-  }
-  nMultipleCurrentQuestion = 0;
-  nMultipleCorrectAnswers = 0;
 };
 
 const showExplanation = () => {
