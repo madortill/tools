@@ -263,76 +263,121 @@ const DATA = {
             correctAns: `ans3`,
           },
           {
-            type: `multiple`,
-            question: `בלה בלה`,
-            ans1: `נכון`,
-            ans2: `טעות`,
-            ans3: `טעות`,
-            ans4: `טעות`,
+            type: `sixChoices`,
+            question: `שאלה עם 6 בחירות`,
+            ans1: `1תשובה`,
+            ans2: `תשובה2`,
+            ans3: `תשובה3`,
+            ans4: `תשובה4`,
+            ans5: `תשובה5`,
+            ans6: `תשובה6`,
+            correctAns: [`ans1`, `ans2`, `ans5`], // the legth will determine how many answers are reqwiered
+          },
+          {
+            type: `multipleAllPic`,
+            question: `שאלה אמריקאית שהתשובות שלה הן תמונות`,
+            answers: [
+              `./assets/panda.jpg`,
+              `./assets/dog.jpg`,
+              `./assets/panda.jpg`,
+              `./assets/dog.jpg`,
+            ], // the legth will determine how many pics will be im the question, one correct ans
             correctAns: `ans1`,
           },
           {
-            type: `multiple`,
-            question: `בלה בלה`,
-            ans1: `נכון`,
-            ans2: `טעות`,
-            ans3: `טעות`,
-            ans4: `טעות`,
+            type: `sixChoicesWithPic`,
+            src: `./assets/panda.jpg`,
+            question: `שאלה עם 6 בחירות ותמונה`,
+            ans1: `1תשובה`,
+            ans2: `תשובה2`,
+            ans3: `תשובה3`,
+            ans4: `תשובה4`,
+            ans5: `תשובה5`,
+            ans6: `תשובה6`,
+            correctAns: [`ans1`, `ans2`, `ans5`],
+          },
+          {
+            type: `multipleWithPic`,
+            src: `./assets/panda.jpg`,
+            question: `שאלה עם תמונה`,
+            ans1: `1תשובה`,
+            ans2: `תשובה2`,
+            ans3: `תשובה3`,
+            ans4: `תשובה4`,
             correctAns: `ans1`,
           },
+          {
+            type: `binary`,
+            question: `סזבכבסססססססססססס`,
+            correctAns: true,
+          },
+          {
+            type: `binaryWithPic`,
+            src: `./assets/dog.jpg`,
+            question: `נכון או לא נכון עם תמונה`,
+            correctAns: true,
+          },
+          {
+            type: "completeSentence",
+            sentence: [`חלק ראשון של המשפט`, `חלק שני של המשפט`], // put each part of the sentence as an string in the array
+            dropDownAns: [`אופציה 1`, `אופציה 2`, `אופציה 3`, `אופציה 4`], // all the options that will apear in the dropDown.
+            correctAns: "ans0", // location of answer in array
+          },
         ],
+        // sort to groups
+        sortToGroups: {
+          drop: [`קבוצה 1`, `קבוצה 2`, `קבוצה 3`],
+          drag: [
+            {
+              drag: "קבוצה 1",
+              group: 1,
+            },
+            {
+              drag: "קבוצה 2",
+              group: 2,
+            },
+            {
+              drag: "קבוצה 3",
+              group: 3,
+            },
+            {
+              drag: "קבוצה 1",
+              group: 1,
+            },
+            {
+              drag: "קבוצה 2",
+              group: 2,
+            },
+            {
+              drag: "קבוצה 3",
+              group: 3,
+            },
+            {
+              drag: "קבוצה 1",
+              group: 1,
+            },
+            {
+              drag: "קבוצה 2",
+              group: 2,
+            },
+            {
+              drag: "קבוצה 3",
+              group: 3,
+            },
+          ],
+        },
       },
-    }, 
+    },
   },
 };
 
 const COURSES = {
-  'בה"ד-6': [
-      "קורס-בהד-6",
-      "קורס-2",
-      "קורס-3",
-      "קורס-4"
-  ],    
-  'בה"ד-7': [
-      "קורס-בהד-7",
-      "קורס-2",
-      "קורס-3",
-      "קורס-4"
-  ],    
-  'בה"ד-10': [
-      "קורס-בהד-10",
-      "קורס-2",
-      "קורס-3",
-      "קורס-4"
-  ],    
-  'בה"ד-11': [
-      "קורס-1",
-      "קורס-2",
-      "קורס-3",
-      "קורס-4"
-  ],    
-  'בה"ד-13': [
-      "קורס-1",
-      "קורס-2",
-      "קורס-3",
-      "קורס-4"
-  ],    
-  'בה"ד-20': [
-      "קורס-1",
-      "קורס-2",
-      "קורס-3",
-      "קורס-4"
-  ],    
-  'בה"ד-חינוך': [
-      "קורס-1",
-      "קורס-2",
-      "קורס-3",
-      "קורס-4"
-  ],      
-  'מפקדה': [
-      "קורס-1",
-      "קורס-2",
-      "קורס-3",
-      "קורס-4"
-  ] 
-}
+  'בה"ד-6': ["קורס-בהד-6", "קורס-2", "קורס-3", "קורס-4"],
+  'בה"ד-7': ["קורס-בהד-7", "קורס-2", "קורס-3", "קורס-4"],
+  'בה"ד-10': ["קורס-בהד-10", "קורס-2", "קורס-3", "קורס-4"],
+  'בה"ד-11': ["קורס-1", "קורס-2", "קורס-3", "קורס-4"],
+  'בה"ד-13': ["קורס-1", "קורס-2", "קורס-3", "קורס-4"],
+  'בה"ד-20': ["קורס-1", "קורס-2", "קורס-3", "קורס-4"],
+  'בה"ד-חינוך': ["קורס-1", "קורס-2", "קורס-3", "קורס-4"],
+  מפקדה: ["קורס-1", "קורס-2", "קורס-3", "קורס-4"],
+};

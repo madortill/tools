@@ -2,7 +2,7 @@
 // question
 let nMultipleCurrentQuestion = 0;
 let nMultipleCorrectAnswers = 0;
-let arrMultipleQuestions = [];
+let arrThisLomdaData = [];
 let currTool;
 let visitedTools = [];
 let strChoosenBhd;
@@ -201,7 +201,7 @@ const addPreQuestion = (e) => {
     document.querySelector(
       `#multipleQuestionContainer`
     ).innerHTML = `<div class="title">שם הכלי: ${toolName}</div><img src="assets/media/${currTool}.svg" alt="${toolName}}" class="curr-tool-pic"><p class="text">לפתיחת ההסבר נדרש לוודא כי יש לך הכשרה מספקת לשימוש בכלי ולכן אתה נדרש לענות נכון לפחות על 2 שאלות מתוך 3</p><div class="btn" id="to-questions">לשאלות</div>`;
-    arrMultipleQuestions = shuffle(
+    arrThisLomdaData = shuffle(
       toolsInfo[currTool]["questions"]
     );
     document
@@ -229,19 +229,19 @@ const addContentToQuestion = () => {
   let question = El(
     "div",
     { cls: `multipleQuestion` },
-    arrMultipleQuestions[nMultipleCurrentQuestion].question
+    arrThisLomdaData[nMultipleCurrentQuestion].question
   );
   document.querySelector(`#multipleQuestionContainer`).append(question);
   
   // add answeres
-  if (arrMultipleQuestions[nMultipleCurrentQuestion].type === "multiple") {
+  if (arrThisLomdaData[nMultipleCurrentQuestion].type === "multiple") {
     let ansContainer = El("div", { cls: `ansContainer` });
     document.querySelector(`#multipleQuestionContainer`).append(ansContainer);
     for (let i = 1; i <= 4; i++) {
       let answer = El(
         "div", {classes: [`multipleAns`, `ans${i}`, `ans`],
           listeners: { click: onClickAnswer }},
-        arrMultipleQuestions[nMultipleCurrentQuestion][`ans${i}`]
+        arrThisLomdaData[nMultipleCurrentQuestion][`ans${i}`]
       );
       document.querySelector(`.ansContainer`).append(answer);
     }
@@ -307,7 +307,7 @@ const onClickAnswer = (event) => {
   // check if answer is correct
   if (
     event.currentTarget.classList[1] ===
-    String(arrMultipleQuestions[nMultipleCurrentQuestion].correctAns)
+    String(arrThisLomdaData[nMultipleCurrentQuestion].correctAns)
   ) {
     event.currentTarget.style.backgroundImage = "url('assets/media/correctQuestion.svg')";
     nMultipleCorrectAnswers++;

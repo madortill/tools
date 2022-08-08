@@ -1,0 +1,76 @@
+body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    direction: rtl; 
+    overflow-y: hidden;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* multiple question */
+/* question */
+.multipleQuestion {
+
+}
+
+/* Answers Container */
+.ansContainer {
+
+}
+
+.ansContainerPic {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.questionPic {
+    width: 35vw;
+    padding: 1em;
+    display: block;
+}
+
+/* complete the sentence */
+.sentence {
+    display: inline-block;
+    padding: 0.4em;
+}
+
+.sentenceContainer{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.dropDown {
+    display: inline-block;
+    padding: 0.4em;
+}
+
+.checkButtonSentence{
+    position: absolute;
+    bottom: 0;
+}
+
+/* sort to groups */
+.dropContainer{
+    display: flex;
+}
+
+.drop {
+    background-color: teal;
+    width: 40vw;
+    height: 40vh;
+    margin: 1em;
+}
+
+.dragContainer{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.drag {
+    background-color: rgb(106, 180, 180);
+    width: 15vw;
+    height: 5vh;
+    margin: 1em;
+}
