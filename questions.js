@@ -105,7 +105,7 @@ const addContentToQuestion = () => {
     } else {
     if(document.querySelector(`.${strCurrentAns}`)) {
         document.querySelector(`.${strCurrentAns}`).style.backgroundImage = "url(assets/media/questionWood.svg)";
-        document.querySelector(`.${strCurrentAns}`).style.backgroundColor = "rgba(256, 256, 256, 0)"; // Change graphics
+        document.querySelector(`.${strCurrentAns}`).style.backgroundColor = "rgba(256, 256, 256, 0)"; debugger // Change graphics
     }
     strCurrentAns = event.currentTarget.classList[1];
     document.querySelector(`.${strCurrentAns}`).style.backgroundColor = "gray"; // Change graphics
@@ -202,14 +202,18 @@ const checkAnswer = () => {
     } else {
         if (strCurrentAns === String(arrThisLomdaData[nMultipleCurrentQuestion].correctAns)){
             nMultipleCorrectAnswers++;
-            if(document.querySelector(`.dropDownTitle`)) {
-                document.querySelector(`.dropDownTitle`).style.backgroundImage = "url('assets/media/correctQuestion.svg')"; // Change graphics
+            if(document.querySelector(`.dropDownTitle`)) { 
+                document.querySelector(`.dropDownTitle`).style.backgroundImage = "url('assets/media/correctQuestion.svg')"; 
+            } else if  (arrThisLomdaData[nMultipleCurrentQuestion].type === "multipleAllPic") {
+                    document.querySelector(`.${strCurrentAns}`).style.border = "solid 5px #43d958";  
             } else {
                 document.querySelector(`.${strCurrentAns}`).style.backgroundImage = "url('assets/media/correctQuestion.svg')";   
             }
         } else {
             if(document.querySelector(`.dropDownTitle`)) {
-                document.querySelector(`.dropDownTitle`).style.backgroundImage= "url('assets/media/wrongQuestion.svg')"; // Change graphics
+                document.querySelector(`.dropDownTitle`).style.backgroundImage= "url('assets/media/wrongQuestion.svg')"; 
+            } else if  (arrThisLomdaData[nMultipleCurrentQuestion].type === "multipleAllPic") {
+                document.querySelector(`.${strCurrentAns}`).style.border = "solid 5px #fd0101"; 
             } else {
                 document.querySelector(`.${strCurrentAns}`).style.backgroundImage= "url('assets/media/wrongQuestion.svg')";   
             }

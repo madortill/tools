@@ -163,33 +163,33 @@ const DATA = {
           //   ans4: `טעות`,
           //   correctAns: `ans1`,
           // },
-          // {
-          //   type: `multiple`,
-          //   question: `בלה בלה`,
-          //   ans1: `נכון`,
-          //   ans2: `טעות`,
-          //   ans3: `טעות`,
-          //   ans4: `טעות`,
-          //   correctAns: `ans1`,
-          // },
-          // {
-          //   type: `multiple`,
-          //   question: `בלה בלה`,
-          //   ans1: `נכון`,
-          //   ans2: `טעות`,
-          //   ans3: `טעות`,
-          //   ans4: `טעות`,
-          //   correctAns: `ans1`,
-          // },
-          // {
-          //   type: `multiple`,
-          //   question: `בלה בלה`,
-          //   ans1: `נכון`,
-          //   ans2: `טעות`,
-          //   ans3: `טעות`,
-          //   ans4: `טעות`,
-          //   correctAns: `ans1`,
-          // },
+          {
+            type: `multiple`,
+            question: `בלה בלה`,
+            ans1: `נכון`,
+            ans2: `טעות`,
+            ans3: `טעות`,
+            ans4: `טעות`,
+            correctAns: `ans1`,
+          },
+          {
+            type: `multiple`,
+            question: `בלה בלה`,
+            ans1: `נכון`,
+            ans2: `טעות`,
+            ans3: `טעות`,
+            ans4: `טעות`,
+            correctAns: `ans1`,
+          },
+          {
+            type: `multiple`,
+            question: `בלה בלה`,
+            ans1: `נכון`,
+            ans2: `טעות`,
+            ans3: `טעות`,
+            ans4: `טעות`,
+            correctAns: `ans1`,
+          },
           // {
           //   type: `sixChoices`,
           //   question: `שאלה עם 6 בחירות`,
@@ -212,40 +212,40 @@ const DATA = {
             ], // the legth will determine how many pics will be im the question, one correct ans
             correctAns: `ans1`,
           },
-          {
-            type: `multipleAllPic`,
-            question: `שאלה אמריקאית שהתשובות שלה הן תמונות`,
-            answers: [
-              `./assets/media/panda.jpg`,
-              `./assets/media/dog.jpg`,
-              `./assets/media/panda.jpg`,
-              `./assets/media/dog.jpg`,
-            ], // the legth will determine how many pics will be im the question, one correct ans
-            correctAns: `ans1`,
-          },
-          {
-            type: `multipleAllPic`,
-            question: `שאלה אמריקאית שהתשובות שלה הן תמונות`,
-            answers: [
-              `./assets/media/panda.jpg`,
-              `./assets/media/dog.jpg`,
-              `./assets/media/panda.jpg`,
-              `./assets/media/dog.jpg`,
-            ], // the legth will determine how many pics will be im the question, one correct ans
-            correctAns: `ans1`,
-          },
           // {
-          //   type: `sixChoicesWithPic`,
-          //   src: `./assets/media/panda.jpg`,
-          //   question: `שאלה עם 6 בחירות ותמונה`,
-          //   ans1: `1תשובה`,
-          //   ans2: `תשובה2`,
-          //   ans3: `תשובה3`,
-          //   ans4: `תשובה4`,
-          //   ans5: `תשובה5`,
-          //   ans6: `תשובה6`,
-          //   correctAns: [`ans1`, `ans2`, `ans5`],
+          //   type: `multipleAllPic`,
+          //   question: `שאלה אמריקאית שהתשובות שלה הן תמונות`,
+          //   answers: [
+          //     `./assets/media/panda.jpg`,
+          //     `./assets/media/dog.jpg`,
+          //     `./assets/media/panda.jpg`,
+          //     `./assets/media/dog.jpg`,
+          //   ], // the legth will determine how many pics will be im the question, one correct ans
+          //   correctAns: `ans1`,
           // },
+          // {
+          //   type: `multipleAllPic`,
+          //   question: `שאלה אמריקאית שהתשובות שלה הן תמונות`,
+          //   answers: [
+          //     `./assets/media/panda.jpg`,
+          //     `./assets/media/dog.jpg`,
+          //     `./assets/media/panda.jpg`,
+          //     `./assets/media/dog.jpg`,
+          //   ], // the legth will determine how many pics will be im the question, one correct ans
+          //   correctAns: `ans1`,
+          // },
+          {
+            type: `sixChoicesWithPic`,
+            src: `./assets/media/panda.jpg`,
+            question: `שאלה עם 6 בחירות ותמונה`,
+            ans1: `1תשובה`,
+            ans2: `תשובה2`,
+            ans3: `תשובה3`,
+            ans4: `תשובה4`,
+            ans5: `תשובה5`,
+            ans6: `תשובה6`,
+            correctAns: [`ans1`, `ans2`, `ans5`],
+          },
           // {
           //   type: `multipleWithPic`,
           //   src: `./assets/media/panda.jpg`,
@@ -267,12 +267,12 @@ const DATA = {
           //   question: `נכון או לא נכון עם תמונה`,
           //   correctAns: true,
           // },
-          // {
-          //   type: "completeSentence",
-          //   sentence: [`חלק ראשון של המשפט`, `חלק שני של המשפט`], // put each part of the sentence as an string in the array
-          //   dropDownAns: [`אופציה 1`, `אופציה 2`, `אופציה 3`, `אופציה 4`], // all the options that will apear in the dropDown.
-          //   correctAns: "ans0", // location of answer in array
-          // },
+          {
+            type: "completeSentence",
+            sentence: [`חלק ראשון של המשפט`, `חלק שני של המשפט`], // put each part of the sentence as an string in the array
+            dropDownAns: [`אופציה 1`, `אופציה 2`, `אופציה 3`, `אופציה 4`], // all the options that will apear in the dropDown.
+            correctAns: "ans0", // location of answer in array
+          },
         ],
         // sort to groups
         sortToGroups: {
