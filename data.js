@@ -1,3 +1,5 @@
+// Needs minimum 18 questions
+
 const DATA = {
   // multiple and binary questions
   "בהד-6": {
@@ -212,17 +214,40 @@ const DATA = {
             ], // the legth will determine how many pics will be im the question, one correct ans
             correctAns: `ans1`,
           },
-          // {
-          //   type: `multipleAllPic`,
-          //   question: `שאלה אמריקאית שהתשובות שלה הן תמונות`,
-          //   answers: [
-          //     `./assets/media/panda.jpg`,
-          //     `./assets/media/dog.jpg`,
-          //     `./assets/media/panda.jpg`,
-          //     `./assets/media/dog.jpg`,
-          //   ], // the legth will determine how many pics will be im the question, one correct ans
-          //   correctAns: `ans1`,
-          // },
+          {
+            type: `multipleAllPic`,
+            question: `שאלה אמריקאית שהתשובות שלה הן תמונות`,
+            answers: [
+              `./assets/media/panda.jpg`,
+              `./assets/media/dog.jpg`,
+              `./assets/media/panda.jpg`,
+              `./assets/media/dog.jpg`,
+            ], // the legth will determine how many pics will be im the question, one correct ans
+            correctAns: `ans1`,
+          },
+          {
+            type: `multipleAllPic`,
+            question: `שאלה אמריקאית שהתשובות שלה הן תמונות`,
+            answers: [
+              `./assets/media/panda.jpg`,
+              `./assets/media/dog.jpg`,
+              `./assets/media/panda.jpg`,
+              `./assets/media/dog.jpg`,
+            ], // the legth will determine how many pics will be im the question, one correct ans
+            correctAns: `ans1`,
+          },
+          {
+            type: `sixChoicesWithPic`,
+            src: `./assets/media/panda.jpg`,
+            question: `שאלה עם 6 בחירות ותמונה`,
+            ans1: `1תשובה`,
+            ans2: `תשובה2`,
+            ans3: `תשובה3`,
+            ans4: `תשובה4`,
+            ans5: `תשובה5`,
+            ans6: `תשובה6`,
+            correctAns: [`ans1`, `ans2`, `ans5`],
+          },
           // {
           //   type: `multipleAllPic`,
           //   question: `שאלה אמריקאית שהתשובות שלה הן תמונות`,
