@@ -99,16 +99,15 @@ const addContentToQuestion = () => {
             document.querySelector(`.${strCurrentAns}`).style.border = "solid 5px rgba(0,0,0,0)";
         }
         strCurrentAns = event.currentTarget.classList[1];
-        document.querySelector(`.${strCurrentAns}`).style.border = "solid 5px white"; // Change graphics
+        document.querySelector(`.${strCurrentAns}`).style.border = "solid 5px white";
         document.querySelector(`.checkButtonSentence`).addEventListener("click", checkAnswer);
         document.querySelector(`.checkButtonSentence`).classList.remove("grayscale");
     } else {
     if(document.querySelector(`.${strCurrentAns}`)) {
         document.querySelector(`.${strCurrentAns}`).style.backgroundImage = "url(assets/media/questionWood.svg)";
-        document.querySelector(`.${strCurrentAns}`).style.backgroundColor = "rgba(256, 256, 256, 0)"; debugger // Change graphics
     }
     strCurrentAns = event.currentTarget.classList[1];
-    document.querySelector(`.${strCurrentAns}`).style.backgroundColor = "gray"; // Change graphics
+    document.querySelector(`.${strCurrentAns}`).style.backgroundImage = "url(assets/media/chosenQuestion.svg)";
     document.querySelector(`.checkButtonSentence`).addEventListener("click", checkAnswer);
     document.querySelector(`.checkButtonSentence`).classList.remove("grayscale");
     }
@@ -122,18 +121,19 @@ const onClickAnswerSixChoices = (event) => {
     if (arrThisLomdaData[nMultipleCurrentQuestion].type === "multipleAllPic") {
         console.log("Pic chosen");
     } else {
-        if(document.querySelector(`.${currAns}`).style.backgroundColor === "gray" /*Change*/) {
-            document.querySelector(`.${currAns}`).style.backgroundColor = "white";
+        if(document.querySelector(`.${currAns}`).style.backgroundImage === 'url("assets/media/chosenQuestion.svg")') { 
+            document.querySelector(`.${currAns}`).style.backgroundImage = "url(assets/media/questionWood.svg)";
             strCurrentAns = strCurrentAns.filter(e => e !== currAns);
         } else if(strCurrentAns.length < arrThisLomdaData[nMultipleCurrentQuestion].correctAns.length) {
             strCurrentAns.push(event.currentTarget.classList[1]);
-            document.querySelector(`.${currAns}`).style.backgroundColor = "gray"; // Change graphics
+            document.querySelector(`.${currAns}`).style.backgroundImage = "url(assets/media/chosenQuestion.svg)";
         }
         if(strCurrentAns.length === arrThisLomdaData[nMultipleCurrentQuestion].correctAns.length){
             document.querySelector(`.checkButtonSentence`).addEventListener("click", checkAnswer);
             document.querySelector(`.checkButtonSentence`).classList.remove("grayscale");
         } else {
             document.querySelector(`.checkButtonSentence`).removeEventListener("click", checkAnswer);
+            document.querySelector(`.checkButtonSentence`).classList.add("grayscale");
         }
     }
 } 
@@ -150,7 +150,7 @@ const controlDropDown = () => {
         document.querySelector(`.containerDropDown`).append(dropDownItem);
     }
     if(strCurrentAns) {
-        document.querySelector(`.${strCurrentAns}`).style.backgroundColor = "gray"; // Change graphics
+        document.querySelector(`.${strCurrentAns}`).style.backgroundImage = "url(assets/media/chosenQuestion.svg)"; // Change graphics
     }
 }
 
