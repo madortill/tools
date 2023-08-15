@@ -90,6 +90,7 @@ select:disabled {
     top: 1vh;
     left: 2vw;
     width: 7.5vw;
+    transform: rotate(180deg);
     height: auto
 }
 
